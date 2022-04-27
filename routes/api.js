@@ -45,23 +45,23 @@ router.get('/categories/:categoryId/questions', async function(req, res, next) {
 // Create similar API routes for questions and answers
 
 //Answers:
-router.get('/categories/:categoryId/questions/:questionId/answers', async function(req, res, next) {
+router.get('/questions/:questionId/answers', async function(req, res, next) {
     // req.body.questionText
     console.log('req.params', req.params)
 
-    let answers = await Answer.findAll({where: {categoryId: req.params.categoryId, questionId: req.params.questionId}})
+    let answers = await Answer.findAll({where: { questionId: req.params.questionId}})
     // res.json(categories)
     res.json(answers)
 });
 
 // create an answer:
-router.post('/categories/:categoryId/questions/:questionId/answers', async function(req, res, next) {
+router.post('/questions/:questionId/answers', async function(req, res, next) {
     // req.body.questionText
     console.log('req.body', req.body)
     console.log('req.params', req.params)
 
     // questionText, categoryId
-    let answer = await Answer.create({answerTxt: req.body.answerTxt, categoryId: req.params.categoryId, questionId: req.params.questionId})
+    let answer = await Answer.create({answerTxt: req.body.answerTxt, questionId: req.params.questionId})
     // res.json(categories)
     // add this insted:
     // res.json({})
